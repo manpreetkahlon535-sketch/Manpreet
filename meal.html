@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Canteen Meal Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaf5ea;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            width: 450px;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px gray;
+        }
+        h1 {
+            color: darkgreen;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid gray;
+            padding: 10px;
+        }
+        th {
+            background-color: lightgreen;
+        }
+        input[type="number"] {
+            padding: 8px;
+            width: 100px;
+        }
+        button {
+            background-color: green;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 12px;
+            background-color: #f0f8ff;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Smart Canteen Meal Planner</h1>
+    <h3>Available Food Items</h3>
+    <table>
+        <tr>
+            <th>Food Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td>Burger</td>
+            <td>₹80</td>
+            <td><input type="number" id="burger" value="0" min="0"></td>
+        </tr>
+        <tr>
+            <td>Sandwich</td>
+            <td>₹60</td>
+            <td><input type="number" id="sandwich" value="0" min="0"></td>
+        </tr>
+        <tr>
+            <td>Pizza</td>
+            <td>₹120</td>
+            <td><input type="number" id="pizza" value="0" min="0"></td>
+        </tr>
+        <tr>
+            <td>French Fries</td>
+            <td>₹50</td>
+            <td><input type="number" id="fries" value="0" min="0"></td>
+        </tr>
+        <tr>
+            <td>Cold Coffee</td>
+            <td>₹70</td>
+            <td><input type="number" id="coffee" value="0" min="0"></td>
+        </tr>
+    </table>
+    <h3>Enter Your Budget</h3>
+    <input type="number" id="budget"
+           placeholder="Budget in ₹" min="0">
+    <br><br>
+
+    <butto onclick="calculateBill()">Calculate Bill</button>
+    <button onclick="resetForm()">Reset</button>
+    <div id="result">
+        Your bill will appear here.
+    </div>
+</div>
+<script>
+    function calculateBill() {
+        let budgetInput = document.getElementById("budget");
+        let budget = Number(budgetInput.value);
+        let prices = [80, 60, 120, 50, 70];
+        let quantities = [
+            Number(document.getElementById("burger").value),
+            Number(document.getElementById("sandwich").value),
+            Number(document.getElementById("pizza").value),
+            Number(document.getElementById("fries").value),
+            Number(document.getElementById("coffee").value)
+        ];
+        let names = [
+            "Burger", "Sandwich", "Pizza",
+            "French Fries", "Cold Coffee"
+        ];
+        let result = document.getElementById("result");
+        // Validate budget
+        if (budgetInput.value === "" ||
+            !Number.isFinite(budget) || budget < 0) {
+            result.innerHTML = "Please enter a valid budget.";
+            return;
+        }
+        // Validate quantities using a while loop
+        let i = 0;
+        while (i < quantities.length) {
+            if (!Number.isInteger(quantities[i]) ||
+                quantities[i] < 0 || quantities[i] > 100) {
+                result.innerHTML =
+                    "Enter a whole number between 0 and 100 for each quantity.";
+                return;
+            }
+            i++;
+        }
+        // Check that at least one item is selected
+        let itemCount = 0;
+        for (let i = 0; i < quantities.length; i++) {
+            itemCount += quantities[i];
+        }
+        if (itemCount === 0) {
+            result.innerHTML = "Please order at least one food item.";
+            return;
+        }
+        // Calculate total bill using a for loop
+        let total = 0;
+        let summary = "<h3>Your Order</h3>";
+        for (let i = 0; i < prices.length; i++) {
+            if (quantities[i] > 0) {
+                let itemTotal = prices[i] * quantities[i];
+                total += itemTotal;
+                summary += names[i] + " x " +
+                    quantities[i] + " = ₹" +
+                    itemTotal + "<br>";
+            }
+        }
+        // Apply 10% discount if bill is greater than ₹300
+        let discount = 0;
+        if (total > 300) {
+            discount = total * 0.10;
+        } else {
+            discount = 0;
+        }
+        let finalBill = total - discount;
+        summary += "<hr>Subtotal: ₹" + total;
+        summary += "<br>Discount: ₹" + discount;
+        summary += "<br><b>Final Bill: ₹" + finalBill + "</b>";
+        // Check whether the budget is sufficient
+        if (finalBill <= budget) {
+            summary += "<br><br><b>You can afford this meal!</b>";
+            summary += "<br>Money remaining: ₹" +
+                (budget - finalBill);
+        } else {
+            summary += "<br><br><b>Your budget is insufficient.</b>";
+            summary += "<br>You need ₹" +
+                (finalBill - budget) + " more.";
+            summary += "<br>Please enter a larger budget.";
+        }
+        result.innerHTML = summary;
+    }
+    function resetForm() {
+        document.getElementById("budget").value = "";
+        let ids = [
+            "burger", "sandwich", "pizza", "fries", "coffee"
+        ];
+        for (let i = 0; i < ids.length; i++) {
+            document.getElementById(ids[i]).value = 0;
+        }
+        document.getElementById("result").innerHTML =
+            "Your bill will appear here.";
+    }
+</script>
+</body>
+</html>

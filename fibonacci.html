@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="demo"></p>
+<script>
+let a = 0, b = 1, c;
+let result = "";
+for (let i = 1; i <= 8; i++)
+{
+    result += a + " ";
+    c = a + b;
+    a = b;
+    b = c;
+}
+document.getElementById("demo").innerHTML = result;
+</script>
+
+</body>
+</html>

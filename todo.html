@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Application</title>
+    <link rel="stylesheet" href="todo.css">
+</head>
+<body>
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h2>☑ Todo App</h2>
+
+        <button class="nav active" data-page="tasks">
+            ☷ All Tasks
+        </button>
+
+        <button class="nav" data-page="add">
+            ⊕ Add Task
+        </button>
+
+        <button class="nav" data-page="completed">
+            ☑ Completed
+        </button>
+
+        <div class="sidebar-summary">
+            <p>Total Tasks</p>
+            <h2 id="totalTasks">0</h2>
+            <p>Completed</p>
+            <h2 id="completedCount">0</h2>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <header class="topbar">
+            <div>
+                <h1 id="pageTitle">My Todos</h1>
+                <p>Organize your day, one task at a time.</p>
+            </div>
+        </header>
+
+        <!-- ALL TASKS -->
+        <section id="tasks" class="page">
+            <div class="section-heading">
+                <h2>My Tasks</h2>
+                <button class="primary" data-goto="add">
+                    + Add Task
+                </button>
+            </div>
+
+            <input
+                type="search"
+                id="taskFilter"
+                placeholder="Search tasks..."
+            >
+
+            <div id="taskList" class="task-list"></div>
+            <p id="emptyTasks" class="empty hidden">
+                No tasks found. Add a new task to get started.
+            </p>
+        </section>
+
+        <!-- ADD TASK FORM -->
+        <section id="add" class="page hidden">
+            <div class="form-card">
+                <h2 id="formHeading">Add New Task</h2>
+                <p class="subtitle">Enter the details of your task below.</p>
+
+                <form id="taskForm">
+                    <label for="taskTitle">Task Title *</label>
+                    <input
+                        type="text"
+                        id="taskTitle"
+                        placeholder="Enter task title"
+                        required
+                        maxlength="120"
+                    >
+
+                    <div class="form-grid">
+                        <div>
+                            <label for="priority">Priority *</label>
+                            <select id="priority" required>
+                                <option value="">Select priority</option>
+                                <option value="High">High</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Low">Low</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label for="dueDate">Due Date *</label>
+                            <input type="date" id="dueDate" required>
+                        </div>
+                    </div>
+
+                    <label for="description">
+                        Description (Optional)
+                    </label>
+                    <textarea
+                        id="description"
+                        rows="4"
+                        placeholder="Enter task description..."
+                    ></textarea>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="primary" id="saveButton">
+                            Add Task
+                        </button>
+
+                        <button type="reset" class="secondary">
+                            Reset
+                        </button>
+
+                        <button
+                            type="button"
+                            id="cancelEdit"
+                            class="secondary hidden"
+                        >
+                            Cancel Edit
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- COMPLETED TASKS -->
+        <section id="completed" class="page hidden">
+            <div class="section-heading">
+                <h2>Completed Tasks</h2>
+            </div>
+
+            <div id="completedList" class="task-list"></div>
+            <p id="emptyCompleted" class="empty hidden">
+                No completed tasks yet.
+            </p>
+        </section>
+
+        <footer>
+            Todo App &bull; Stay organized and productive
+        </footer>
+
+    </main>
+</div>
+
+<script src="todo.js"></script>
+</body>
+</html>

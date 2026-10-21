@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Even and Odd Numbers</title>
+</head>
+<body>
+
+<h1>Even and Odd Numbers Between 1 to 100</h1>
+
+<h2>Even Numbers</h2>
+<p id="even"></p>
+
+<h2>Odd Numbers</h2>
+<p id="odd"></p>
+
+<script>
+let i = 1;
+let evenCount = 1;
+let oddCount = 1;
+let even = "";
+let odd = "";
+
+while (i <= 100) {
+    if (i % 2 == 0) {
+        even += "Even No. " + evenCount + " is  " +  i   + "<br>";
+        evenCount++;
+    } else {
+        odd += "Odd No. " + oddCount + " is   " + i + "<br>";
+        oddCount++;
+    }
+    i++;
+}
+
+document.getElementById("even").innerHTML = even;
+document.getElementById("odd").innerHTML = odd;
+</script>
+
+</body>
+</html>

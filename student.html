@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="student.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <h2>🎓 Student Portal</h2>
+        <button onclick="showPage('dashboard')">⌂ Dashboard</button>
+        <button onclick="showPage('add')">＋ Add Student</button>
+        <button onclick="showPage('students')">♟ Students</button>
+        <button onclick="showPage('search')">⌕ Search Student</button>
+        <button onclick="showPage('delete')">▣ Delete Student</button>
+    </aside>
+
+    <main class="content">
+        <header>
+            <h1 id="pageTitle">Student Dashboard</h1>
+            <p>Student Management System</p>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="page">
+            <div class="cards">
+                <div class="card blue">Total Students
+                    <h2 id="total">0</h2>
+                </div>
+                <div class="card green">Active Students
+                    <h2 id="active">0</h2>
+                </div>
+                <div class="card orange">Male Students
+                    <h2 id="male">0</h2>
+                </div>
+                <div class="card purple">Female Students
+                    <h2 id="female">0</h2>
+                </div>
+            </div>
+
+            <h2>Recent Students</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Name</th>
+                            <th>Course</th><th>Email</th><th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ADD STUDENT -->
+        <section id="add" class="page hidden">
+            <h2>Add New Student</h2>
+            <form id="studentForm">
+                <div class="form-grid">
+                    <div>
+                        <label>Name *</label>
+                        <input id="name" required
+                               placeholder="Enter student name">
+                    </div>
+                    <div>
+                        <label>Phone Number</label>
+                        <input id="phone" type="tel"
+                               placeholder="Enter phone number">
+                    </div>
+                    <div>
+                        <label>Email *</label>
+                        <input id="email" type="email" required
+                               placeholder="Enter email address">
+                    </div>
+                    <div>
+                        <label>Gender *</label>
+                        <select id="gender" required>
+                            <option value="">Select gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Course *</label>
+                        <select id="course" required>
+                            <option value="">Select course</option>
+                            <option>B.Tech CSE</option>
+                            <option>B.Tech ECE</option>
+                            <option>B.Sc CS</option>
+                            <option>BCA</option>
+                            <option>BBA</option>
+                            <option>MCA</option>
+                            <option>MBA</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Date of Birth</label>
+                        <input id="dob" type="date">
+                    </div>
+                </div>
+                <br>
+                <button class="save" type="submit">Save Student</button>
+                <button class="reset" type="reset">Reset</button>
+            </form>
+        </section>
+
+        <!-- ALL STUDENTS -->
+        <section id="students" class="page hidden">
+            <h2>All Students</h2>
+            <input id="filter" placeholder="Filter students..."
+                   oninput="renderStudents()">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Name</th><th>Course</th>
+                            <th>Email</th><th>Gender</th><th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentsTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SEARCH STUDENT -->
+        <section id="search" class="page hidden">
+            <h2>Search Student</h2>
+            <input id="searchInput"
+                   placeholder="Enter name, ID, email or course"
+                   oninput="searchStudents()">
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Name</th><th>Phone</th>
+                            <th>Email</th><th>Course</th><th>Gender</th>
+                        </tr>
+                    </thead>
+                    <tbody id="searchTable"></tbody>
+                </table>
+            </div>
+            <p id="searchMessage"></p>
+        </section>
+
+        <!-- DELETE STUDENT -->
+        <section id="delete" class="page hidden">
+            <h2>Delete Student</h2>
+            <p>Click Delete to remove a student record.</p>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Name</th><th>Course</th>
+                            <th>Email</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="deleteTable"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="student.js"></script>
+</body>
+</html>

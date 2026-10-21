@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sum of Array</title>
+</head>
+<body>
+<h2>Sum of All Numbers in Array</h2>
+<p id="result"></p>
+<script>
+    let arr = [10, 20, 30, 40, 50];
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        sum = sum + arr[i];
+    }
+    document.getElementById("result").innerHTML =
+        "Sum of all numbers is: " + sum;
+</script>
+</body>
+</html>

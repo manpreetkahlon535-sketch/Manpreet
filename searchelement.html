@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Element in Array</title>
+</head>
+<body>
+<h2>Search Element in Array</h2>
+<p id="result"></p>
+<script>
+    let arr = ["Java", "C++", "Python", "HTML", "JS"];
+    let search = "Python";
+    let found = false;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == search) {
+            found = true;
+            break;
+        }
+    }
+    if (found) {
+        document.getElementById("result").innerHTML =
+            "Python is found in the array";
+    } else {
+        document.getElementById("result").innerHTML =
+            "Python is not found in the array";
+    }
+</script>
+</body>
+</html>

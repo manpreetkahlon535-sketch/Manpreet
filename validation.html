@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LTSU Student Registration Form</title>
+
+    <style>
+        body {
+            background-color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 750px;
+            max-width: 90%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .form-header {
+            text-align: center;
+        }
+
+        .form-header img {
+            display: block;
+            margin: 0 auto;
+            object-fit: contain;
+            width: 100px;
+            height: 100px;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 10px;
+        }
+
+        .form-row > label {
+            width: 170px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .form-row input[type="text"],
+        .form-row input[type="tel"],
+        .form-row input[type="email"],
+        .form-row input[type="password"],
+        .form-row select,
+        .form-row textarea {
+            padding: 7px;
+            box-sizing: border-box;
+            max-width: 100%;
+        }
+
+        .full-width {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .name-input {
+            width: 42%;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons input {
+            padding: 10px 25px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row > label {
+                width: 100%;
+            }
+
+            .full-width {
+                width: 100%;
+            }
+
+            .name-input {
+                width: 40%;
+            }
+        }
+    </style>
+
+    <script>
+        function validateForm() {
+
+            // Get field values
+            var roll = document.getElementById("roll").value.trim();
+            var fname = document.getElementById("fname").value.trim();
+            var lname = document.getElementById("lname").value.trim();
+            var father = document.getElementById("father").value.trim();
+
+            var day = document.getElementById("day").value.trim();
+            var month = document.getElementById("month").value.trim();
+            var year = document.getElementById("year").value.trim();
+
+            var mobile = document.getElementById("mobile").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var password = document.getElementById("password").value;
+
+            var city = document.getElementById("city").value.trim();
+            var address = document.getElementById("address").value.trim();
+            var photo = document.getElementById("photo").value;
+            var course = document.getElementById("course").value;
+
+            // Roll number validation
+            if (roll.length <= 10) {
+                alert("Roll number must contain more than 10 characters!");
+                return false;
+            }
+
+            // Student name validation
+            if (fname.length <= 2 || lname.length <= 2) {
+                alert("First name and last name must contain more than 2 characters!");
+                return false;
+            }
+
+            // Father's name validation
+            if (father.length <= 2) {
+                alert("Father's name must contain more than 2 characters!");
+                return false;
+            }
+
+            // Date of birth validation
+            if (day === "" || month === "" || year === "") {
+                alert("Please enter your complete date of birth!");
+                return false;
+            }
+
+            var d = Number(day);
+            var m = Number(month);
+            var y = Number(year);
+            var date = new Date(y, m - 1, d);
+
+            if (
+                !/^\d+$/.test(day) ||
+                !/^\d+$/.test(month) ||
+                !/^\d{4}$/.test(year) ||
+                date.getDate() !== d ||
+                date.getMonth() !== m - 1 ||
+                date.getFullYear() !== y ||
+                y < 1900 ||
+                date > new Date()
+            ) {
+                alert("Please enter a valid date of birth!");
+                return false;
+            }
+
+            // Mobile number validation
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                alert("Mobile number must contain exactly 10 digits!");
+                return false;
+            }
+
+            // Email validation
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert("Please enter a valid email address!");
+                return false;
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                alert("Password must contain at least 8 characters!");
+                return false;
+            }
+
+            // Gender validation
+            var gender = document.querySelector(
+                'input[name="gender"]:checked'
+            );
+
+            if (gender === null) {
+                alert("Please select your gender!");
+                return false;
+            }
+
+            // Department validation
+            var departments = document.querySelectorAll(
+                'input[name="department"]:checked'
+            );
+
+            if (departments.length === 0) {
+                alert("Please select at least one department!");
+                return false;
+            }
+
+            // Course validation
+            if (course === "") {
+                alert("Please select a course!");
+                return false;
+            }
+
+            // Student photo validation
+            if (photo === "") {
+                alert("Please select your student photo!");
+                return false;
+            }
+
+            // City validation
+            if (city === "") {
+                alert("Please enter your city!");
+                return false;
+            }
+
+            // Address validation
+            if (address === "") {
+                alert("Please enter your address!");
+                return false;
+            }
+
+            // Successful validation
+            alert("Registration successful!");
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+
+<form onsubmit="return validateForm()">
+
+    <div class="form-container">
+
+        <!-- University logo and heading -->
+        <div class="form-header">
+
+           <img src="C:\Users\HP\OneDrive\Pictures\Camera Roll\ltsu.jpeg"alt="LTSU Logo"
+                     width="120"
+                     height="120">
+
+
+            <h1>Lamrin Tech Skills University</h1>
+            <h2>(LTSU)</h2>
+            <h3>Student Registration Form</h3>
+
+            <hr>
+        </div>
+
+        <!-- Roll number -->
+        <div class="form-row">
+            <label for="roll">Roll no. :</label>
+            <input type="text" id="roll"
+                   class="full-width" required>
+        </div>
+
+        <!-- Student name -->
+        <div class="form-row">
+            <label>Student name :</label>
+            <div>
+                <input type="text" id="fname"
+                       class="name-input"
+                       placeholder="First Name" required>
+                -
+                <input type="text" id="lname"
+                       class="name-input"
+                       placeholder="Last Name" required>
+            </div>
+        </div>
+
+        <!-- Father's name -->
+        <div class="form-row">
+            <label for="father">Father's name :</label>
+            <input type="text" id="father"
+                   class="full-width" required>
+        </div>
+
+        <!-- Date of birth -->
+        <div class="form-row">
+            <label>Date of birth :</label>
+            <div>
+                <input type="text" id="day"
+                       size="3" placeholder="Day"
+                       maxlength="2" required>
+                -
+                <input type="text" id="month"
+                       size="3" placeholder="Month"
+                       maxlength="2" required>
+                -
+                <input type="text" id="year"
+                       size="5" placeholder="Year"
+                       maxlength="4" required>
+
+                <i>(DD-MM-YYYY)</i>
+            </div>
+        </div>
+
+        <!-- Mobile number -->
+        <div class="form-row">
+            <label for="mobile">Mobile no. :</label>
+            <div>
+                <input type="text" size="3"
+                       value="+91" readonly>
+                -
+                <input type="tel" id="mobile"
+                       size="25" maxlength="10"
+                       placeholder="10-digit mobile number"
+                       required>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-row">
+            <label for="email">Email id :</label>
+            <input type="email" id="email"
+                   class="full-width" required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-row">
+            <label for="password">Password :</label>
+            <input type="password" id="password"
+                   class="full-width"
+                   minlength="8" required>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-row">
+            <label>Gender :</label>
+            <div>
+                <input type="radio" name="gender"
+                       value="Male"> Male
+
+                <input type="radio" name="gender"
+                       value="Female"> Female
+            </div>
+        </div>
+
+        <!-- Department -->
+        <div class="form-row">
+            <label>Department :</label>
+            <div>
+                <input type="checkbox" name="department"
+                       value="CSE"> CSE
+
+                <input type="checkbox" name="department"
+                       value="IT"> IT
+
+                <input type="checkbox" name="department"
+                       value="ECE"> ECE
+
+                <input type="checkbox" name="department"
+                       value="Civil"> Civil
+
+                <input type="checkbox" name="department"
+                       value="Mech"> Mech
+            </div>
+        </div>
+
+        <!-- Course -->
+        <div class="form-row">
+            <label for="course">Course :</label>
+            <select id="course" required>
+                <option value="">Select Current Course</option>
+                <option value="Python">Python</option>
+                <option value="Node">Node</option>
+                <option value="Java">Java</option>
+                <option value="React">React</option>
+                <option value="PHP">PHP</option>
+            </select>
+        </div>
+
+        <!-- Student photo -->
+        <div class="form-row">
+            <label for="photo">Student photo :</label>
+            <input type="file" id="photo"
+                   accept="image/*" required>
+        </div>
+
+        <!-- City -->
+        <div class="form-row">
+            <label for="city">City :</label>
+            <input type="text" id="city"
+                   class="full-width" required>
+        </div>
+
+        <!-- Address -->
+        <div class="form-row">
+            <label for="address">Address :</label>
+            <textarea id="address" rows="4"
+                      class="full-width" required></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <input type="submit" value="Register">
+            <input type="reset" value="Reset">
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+</html>

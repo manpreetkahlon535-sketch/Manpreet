@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lamrin tech Skills University | Student Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f1f5f9;
+            color: #1e293b;
+        }
+
+        /* LOGIN PAGE */
+        #loginPage {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #6b7c8b, #2e3239);
+        }
+
+        .login-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px #0003;
+            text-align: center;
+        }
+
+        .logo {
+            width: 75px;
+            height: 75px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: #9296a0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .login-box h2 {
+            color: #3b4152;
+            margin-bottom: 8px;
+        }
+
+        .login-box p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 13px;
+            margin: 10px 0;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .login-box input:focus {
+            border-color: #2563eb;
+            background: #eff6ff;
+            transform: scale(1.02);
+        }
+
+        button {
+            cursor: pointer;
+            border: none;
+            border-radius: 7px;
+            padding: 12px 18px;
+            font-size: 15px;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: #1d4ed8;
+            color: white;
+            margin-top: 15px;
+        }
+
+        .login-btn:hover {
+            background: #1e40af;
+        }
+
+        #error {
+            color: #dc2626;
+            margin-top: 12px;
+            font-size: 14px;
+        }
+
+        .demo {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 7px;
+            font-size: 13px;
+        }
+
+        /* DASHBOARD */
+        #dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+
+        header {
+            background: #102a43;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        header h2 {
+            font-size: 21px;
+        }
+
+        header p {
+            font-size: 13px;
+            margin-top: 5px;
+            color: #cbd5e1;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+        }
+
+        .logout-btn:hover {
+            background: #b91c1c;
+        }
+
+        .layout {
+            display: flex;
+            min-height: calc(100vh - 80px);
+        }
+
+        aside {
+            width: 230px;
+            background: white;
+            padding: 25px 15px;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        aside h3 {
+            padding: 10px;
+            color: #1d4ed8;
+        }
+
+        aside a {
+            display: block;
+            padding: 13px 12px;
+            margin: 5px 0;
+            border-radius: 7px;
+            text-decoration: none;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        aside a:hover,
+        aside a.active {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        main {
+            flex: 1;
+            padding: 30px;
+            min-width: 0;
+        }
+
+        .welcome h1 {
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            margin-bottom: 25px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px #0000000a;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card .icon {
+            font-size: 27px;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .card h2 {
+            color: #1d4ed8;
+            margin-top: 10px;
+            font-size: 26px;
+        }
+
+        .section {
+            background: white;
+            padding: 23px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            overflow-x: auto;
+        }
+
+        .section h2 {
+            font-size: 20px;
+            margin-bottom: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 400px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e40af;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #dcfce7;
+            color: #166534;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .notice {
+            padding: 14px;
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            margin-bottom: 12px;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .profile p {
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .profile strong {
+            display: inline-block;
+            min-width: 140px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 18px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1000px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 650px) {
+            header {
+                padding: 16px;
+            }
+
+            .layout {
+                flex-direction: column;
+            }
+
+            aside {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+                padding: 10px;
+            }
+
+            aside h3 {
+                display: none;
+            }
+
+            aside a {
+                display: inline-block;
+                padding: 10px;
+            }
+
+            main {
+                padding: 18px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome h1 {
+                font-size: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOGIN PAGE -->
+    <div id="loginPage">
+        <div class="login-box">
+
+            <div>
+                <img src="C:\Users\HP\OneDrive\Pictures\Camera Roll\ltsu.jpeg"alt="LTSU Logo"
+                     width="120"
+                     height="120">
+            </div>
+
+            <h2>Lamrin tech skills university</h2>
+            <p>Student Portal Login</p>
+
+            <form id="loginForm">
+                <input
+                    type="text"
+                    id="username"
+                    placeholder="Enter username"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter password"
+                    required
+                >
+
+                <button type="submit" class="login-btn">
+                    Login to Dashboard
+                </button>
+
+                <div id="error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- STUDENT DASHBOARD -->
+    <div id="dashboard">
+
+        <header>
+            <div>
+                <h2>🎓 Lamrin tech skills University</h2>
+                <p>Student Management Portal</p>
+            </div>
+
+            <button class="logout-btn" onclick="logout()">
+                Logout ↗
+            </button>
+        </header>
+
+        <div class="layout">
+
+            <!-- SIDEBAR -->
+            <aside>
+                <h3>STUDENT MENU</h3>
+
+                <a class="active" onclick="showSection('home', this)">
+                    🏠 Dashboard
+                </a>
+
+                <a onclick="showSection('profile', this)">
+                    👤 My Profile
+                </a>
+
+                <a onclick="showSection('courses', this)">
+                    📚 My Courses
+                </a>
+
+                <a onclick="showSection('results', this)">
+                    📝 Examination Results
+                </a>
+
+                <a onclick="showSection('notices', this)">
+                    📢 Notices
+                </a>
+            </aside>
+
+            <!-- MAIN CONTENT -->
+            <main>
+
+                <!-- HOME -->
+                <div id="home" class="page-section">
+
+                    <div class="welcome">
+                        <h1>Welcome, <span id="studentName">Manpreet</span>! 👋</h1>
+                        <p>Here is your college dashboard and academic overview.</p>
+                    </div>
+
+                    <div class="cards">
+
+                        <div class="card">
+                            <div class="icon">📚</div>
+                            <p>Total Courses</p>
+                            <h2>5</h2>
+                        </div>
+
+                        <div class="card">
+                            <div class="icon">📅</div>
+                            <p>Attendance</p>
+                            <h2>85%</h2>
+                        </div>
+
+                        <div class="card">
+                            <div class="icon">🏆</div>
+                            <p>Current CGPA</p>
+                            <h2>8.2</h2>
+                        </div>
+
+                        <div class="card">
+                            <div class="icon">📢</div>
+                            <p>New Notices</p>
+                            <h2>3</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="section">
+                        <h2>📅 Today's Class Schedule</h2>
+
+                        <table>
+                            <tr>
+                                <th>Time</th>
+                                <th>Subject</th>
+                                <th>Room</th>
+                                <th>Status</th>
+                            </tr>
+
+                            <tr>
+                                <td>09:00 AM</td>
+                                <td>Font end Development</td>
+                                <td>Room 101</td>
+                                <td><span class="badge">Scheduled</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>11:00 AM</td>
+                                <td>Operating system</td>
+                                <td>Lab 02</td>
+                                <td><span class="badge">Scheduled</span></td>
+                            </tr>
+
+                            <tr>
+                                <td>02:00 PM</td>
+                                <td>Database Management</td>
+                                <td>Room 204</td>
+                                <td><span class="badge">Scheduled</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="section">
+                        <h2>📢 Latest Announcements</h2>
+
+                        <div class="notice">
+                            <strong>Examination Notice</strong><br>
+                            Students should check the examination schedule
+                            before the upcoming examinations.
+                        </div>
+
+                        <div class="notice">
+                            <strong>Library Update</strong><br>
+                            Students are requested to return borrowed books
+                            before their due dates.
+                        </div>
+
+                        <div class="notice">
+                            <strong>Assignment Submission</strong><br>
+                            Submit pending assignments to the respective
+                            subject teachers.
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PROFILE -->
+                <div id="profile" class="page-section" style="display:none">
+                    <div class="section">
+                        <h2>👤 Student Profile</h2>
+
+                        <div class="profile">
+                            <p><strong>Student Name:</strong> Manpreet</p>
+                            <p><strong>Roll Number:</strong> 25100110068</p>
+                            <p><strong>University:</strong> Lamrin tech skills University University</p>
+                            <p><strong>Department:</strong> Computer Science</p>
+                            <p><strong>Semester:</strong> 3rd Semester</p>
+                            <p><strong>Email:</strong> 25100110068.uset@ltsu.ac.in</p>
+                            <p><strong>Account Status:</strong> Active</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- COURSES -->
+                <div id="courses" class="page-section" style="display:none">
+                    <div class="section">
+                        <h2>📚 My Courses</h2>
+
+                        <table>
+                            <tr>
+                                <th>Course Code</th>
+                                <th>Subject</th>
+                                <th>Credits</th>
+                            </tr>
+                            <tr>
+                                <td>CS101</td>
+                                <td>Front end Development</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>CS102</td>
+                                <td>HTML and CSS</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>CS103</td>
+                                <td>JavaScript Programming</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>CS104</td>
+                                <td>Database Management</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>CS105</td>
+                                <td>Operating Systems</td>
+                                <td>3</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- RESULTS -->
+                <div id="results" class="page-section" style="display:none">
+                    <div class="section">
+                        <h2>📝 Examination Results</h2>
+
+                        <table>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Marks</th>
+                                <th>Grade</th>
+                                <th>Result</th>
+                            </tr>
+                            <tr>
+                                <td>Front end Development</td>
+                                <td>82/100</td>
+                                <td>A</td>
+                                <td>Pass</td>
+                            </tr>
+                            <tr>
+                                <td>HTML and CSS</td>
+                                <td>88/100</td>
+                                <td>A+</td>
+                                <td>Pass</td>
+                            </tr>
+                            <tr>
+                                <td>JavaScript Programming</td>
+                                <td>78/100</td>
+                                <td>B+</td>
+                                <td>Pass</td>
+                            </tr>
+                            <tr>
+                                <td>Database Management</td>
+                                <td>80/100</td>
+                                <td>A</td>
+                                <td>Pass</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- NOTICES -->
+                <div id="notices" class="page-section" style="display:none">
+                    <div class="section">
+                        <h2>📢 University Notices</h2>
+
+                        <div class="notice">
+                            <strong>Notice 1: Examination</strong><br>
+                            Examination timetable information is available
+                            from the university examination department.
+                        </div>
+
+                        <div class="notice">
+                            <strong>Notice 2: Holidays</strong><br>
+                            Check the official academic calendar for holidays
+                            and university events.
+                        </div>
+
+                        <div class="notice">
+                            <strong>Notice 3: Fee Submission</strong><br>
+                            Students should check their fee status with
+                            the university accounts office.
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+
+        <footer>
+            © 2026 Lamrin tech skills University | Student Dashboard
+        </footer>
+
+    </div>
+
+    <script>
+        // LOGIN VALIDATION
+        document.getElementById("loginForm").addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+                var username =
+                    document.getElementById("username").value.trim();
+
+                var password =
+                    document.getElementById("password").value;
+
+                var error = document.getElementById("error");
+
+                // Demo username and password
+                if (username === "manpreet" && password === "12345") {
+
+                    document.getElementById("loginPage").style.display = "none";
+                    document.getElementById("dashboard").style.display = "block";
+
+                    document.getElementById("studentName").textContent =
+                        "Demo Student";
+
+                    error.textContent = "";
+
+                } else {
+                    error.textContent =
+                        "Invalid username or password. Please try again.";
+                }
+            }
+        );
+
+        // NAVIGATION BETWEEN DASHBOARD SECTIONS
+        function showSection(sectionId, clickedLink) {
+
+            var sections =
+                document.getElementsByClassName("page-section");
+
+            for (var i = 0; i < sections.length; i++) {
+                sections[i].style.display = "none";
+            }
+
+            document.getElementById(sectionId).style.display = "block";
+
+            var links = document.querySelectorAll("aside a");
+
+            for (var j = 0; j < links.length; j++) {
+                links[j].classList.remove("active");
+            }
+
+            clickedLink.classList.add("active");
+        }
+
+        // LOGOUT
+        function logout() {
+
+            document.getElementById("dashboard").style.display = "none";
+            document.getElementById("loginPage").style.display = "flex";
+
+            document.getElementById("loginForm").reset();
+            document.getElementById("error").textContent = "";
+
+        }
+    </script>
+
+</body>
+</html>

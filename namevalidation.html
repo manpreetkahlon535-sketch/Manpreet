@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script>
+            function validation(){
+                let name = document.forms["myForm"]["sname"].value;
+                let rollno = document.forms["myForm"]["srollno"].value;
+                if(name== ""&& rollno==""){
+                    alert("Name and rollno muat be filled out");
+                    return false;
+                }
+            }
+        </script>
+        <body>
+            <h2>JavaScript validation</h2>
+            <form name="myForm" onsubmit="return validation()" method="post">
+        <input type="text" placeholder="Enter name" name="sname">
+        <input type="text" placeholder="Enter rollno" name="srollno">
+        <input type="submit" value="submit">
+</form>
+        </body>
+    </head>
+</html>

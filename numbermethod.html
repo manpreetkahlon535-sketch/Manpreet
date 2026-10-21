@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Objects</h1>
+<h2>Object Methods</h2>
+<p>A method is a function definition stored as a property value.</p>
+<p id="demo"></p>
+<script>
+function add() {
+    const myNumber = {
+        firstnum: 25,
+        secondnum: 50,
+        addnum: function() {
+            return this.firstnum + this.secondnum;
+        }
+    };
+    document.getElementById("demo").innerHTML = myNumber.addnum();
+}
+</script>
+<button onclick="add()">ADD</button>
+</body>
+</html>

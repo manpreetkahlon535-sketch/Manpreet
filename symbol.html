@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>JavaScript Control Flow</h1>
+<h2>The switch Statement</h2>
+
+<p id="demo"></p>
+
+<script>
+    let res;
+let oper='+';
+let x=20, y=10;
+switch (oper) {
+  case '+':
+ res= x+y;
+    break;
+  case '-':
+     res= x-y ;
+    break;
+  case '/':
+      res= x/y ;
+    break;
+  case '%':
+      res= x%y ;
+    break;
+
+}
+
+document.getElementById("demo").innerHTML = " result " + res;
+</script>
+
+</body>
+</html>

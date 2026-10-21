@@ -1,0 +1,323 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f7fb;
+    color: #243447;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 230px;
+    background: #102a3c;
+    color: white;
+    padding: 22px 12px;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    font-size: 18px;
+    margin: 5px 7px 30px;
+}
+
+.nav {
+    display: block;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    background: transparent;
+    color: white;
+    text-align: left;
+    padding: 13px 12px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+
+.nav:hover,
+.nav.active {
+    background: #1976e8;
+}
+
+/* Main content */
+main {
+    flex: 1;
+    min-width: 0;
+    padding: 28px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 27px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 13px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.primary {
+    background: #1976e8;
+    color: white;
+}
+
+.primary:hover {
+    background: #1265cb;
+}
+
+#status {
+    background: #e4f1ff;
+    color: #1c5b9d;
+    padding: 11px;
+    border-radius: 5px;
+    margin-bottom: 18px;
+}
+
+#status.error {
+    background: #fff0f0;
+    color: #b52b37;
+}
+
+#status.success {
+    background: #e5f8eb;
+    color: #167545;
+}
+
+/* Dashboard cards */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.card,
+.panel {
+    background: white;
+    border: 1px solid #e0e9f0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 15px #203b5010;
+}
+
+.card p {
+    color: #718096;
+    margin: 0;
+}
+
+.card h2 {
+    font-size: 28px;
+    margin-bottom: 0;
+}
+
+/* Search and table */
+input,
+select {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d4dfe8;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 5px 0 12px;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #c6e1ff;
+}
+
+#filter {
+    width: 250px;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    white-space: nowrap;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 13px 10px;
+    border-bottom: 1px solid #e6edf2;
+}
+
+th {
+    background: #f4f8fb;
+    font-size: 12px;
+    color: #526476;
+}
+
+tbody tr:hover {
+    background: #f9fbfd;
+}
+
+.edit {
+    background: #1976e8;
+    color: white;
+    margin-right: 5px;
+}
+
+.delete {
+    background: #e64c58;
+    color: white;
+}
+
+/* Employee form */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 20px;
+    margin-top: 20px;
+}
+
+.form-grid label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-grid input,
+.form-grid select {
+    width: 100%;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #e4ebf1;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Search results */
+#searchForm {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    max-width: 700px;
+}
+
+#searchForm input {
+    flex: 1;
+}
+
+.result {
+    display: flex;
+    gap: 18px;
+    padding: 18px;
+    margin-top: 15px;
+    background: #fbfdff;
+    border: 1px solid #c7def2;
+    border-radius: 8px;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #d6eaff;
+    color: #1976e8;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+}
+
+.details {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 9px;
+}
+
+footer {
+    text-align: center;
+    color: #9aa7b4;
+    font-size: 12px;
+    margin-top: 25px;
+}
+
+/* Mobile responsive design */
+@media (max-width: 700px) {
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .sidebar h2 {
+        margin-bottom: 12px;
+    }
+
+    .nav {
+        display: inline-block;
+        width: auto;
+        padding: 9px;
+    }
+
+    main {
+        padding: 16px 10px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    header {
+        align-items: flex-start;
+    }
+
+    #filter {
+        width: 100%;
+    }
+
+    #searchForm {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #searchForm input {
+        width: 100%;
+    }
+}

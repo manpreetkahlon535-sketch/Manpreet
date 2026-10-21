@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LTSU Student Registration Form</title>
+
+    <style>
+        body {
+            background-color: whitesmoke;
+            font-family: Arial, sans-serif;
+        }
+
+        .form-container {
+            width: 750px;
+            max-width: 95%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .form-header {
+            text-align: center;
+        }
+
+        .form-header img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            display: block;
+            margin: auto;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .form-row > label {
+            width: 170px;
+            flex-shrink: 0;
+            font-weight: bold;
+        }
+
+        .full-width {
+            flex: 1;
+            min-width: 0;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            padding: 8px;
+            border: 1px solid gray;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: background-color 0.3s,
+                        border 0.3s,
+                        transform 0.3s;
+        }
+
+        /* Field effects when clicked */
+        input:focus,
+        select:focus,
+        textarea:focus {
+            background-color: lightyellow;
+            border: 2px solid blue;
+            outline: none;
+            transform: scale(1.03);
+        }
+
+        /* Green background for completed fields */
+        .completed {
+            background-color: #e0ffe0;
+        }
+
+        /* Red background for invalid fields */
+        .invalid {
+            background-color: #ffe0e0;
+            border: 2px solid red;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            accent-color: blue;
+            cursor: pointer;
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons input {
+            padding: 10px 25px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .form-row > label {
+                width: 100%;
+            }
+
+            .full-width {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script>
+        // Event: when the user clicks a field
+        function fieldFocus(field) {
+            field.style.backgroundColor = "lightyellow";
+            field.style.border = "2px solid blue";
+            field.style.transform = "scale(1.03)";
+        }
+
+        // Event: while the user types
+        function fieldInput(field) {
+            field.style.transform = "scale(1)";
+
+            if (field.value.trim() !== "") {
+                field.classList.add("completed");
+                field.classList.remove("invalid");
+                field.style.backgroundColor = "#e0ffe0";
+            } else {
+                field.classList.remove("completed");
+                field.classList.remove("invalid");
+                field.style.backgroundColor = "white";
+            }
+        }
+
+        // Event: when the user leaves a field
+        function fieldBlur(field) {
+            field.style.transform = "scale(1)";
+            field.style.border = "1px solid gray";
+
+            if (field.value.trim() === "") {
+                field.style.backgroundColor = "white";
+            } else {
+                field.style.backgroundColor = "#e0ffe0";
+            }
+        }
+
+        // Event: when a selection changes
+        function fieldChange(field) {
+            fieldInput(field);
+        }
+
+        // Complete form validation
+        function validateForm() {
+
+            var roll = document.getElementById("roll").value.trim();
+            var fname = document.getElementById("fname").value.trim();
+            var lname = document.getElementById("lname").value.trim();
+            var father = document.getElementById("father").value.trim();
+
+            var day = document.getElementById("day").value.trim();
+            var month = document.getElementById("month").value.trim();
+            var year = document.getElementById("year").value.trim();
+
+            var mobile = document.getElementById("mobile").value.trim();
+            var email = document.getElementById("email").value.trim();
+            var password = document.getElementById("password").value;
+
+            var city = document.getElementById("city").value.trim();
+            var address = document.getElementById("address").value.trim();
+            var photo = document.getElementById("photo").value;
+            var course = document.getElementById("course").value;
+
+            // Roll number: more than 10 characters
+            if (roll.length <= 10) {
+                alert("Roll number must contain more than 10 characters!");
+                document.getElementById("roll").focus();
+                return false;
+            }
+
+            // Student name
+            if (fname.length <= 2 || lname.length <= 2) {
+                alert("First name and last name must contain more than 2 characters!");
+                document.getElementById("fname").focus();
+                return false;
+            }
+
+            // Father's name
+            if (father.length <= 2) {
+                alert("Father's name must contain more than 2 characters!");
+                document.getElementById("father").focus();
+                return false;
+            }
+
+            // Date of birth
+            if (
+                day === "" ||
+                month === "" ||
+                year === ""
+            ) {
+                alert("Please enter your complete date of birth!");
+                document.getElementById("day").focus();
+                return false;
+            }
+
+            var d = Number(day);
+            var m = Number(month);
+            var y = Number(year);
+            var date = new Date(y, m - 1, d);
+
+            if (
+                !/^\d+$/.test(day) ||
+                !/^\d+$/.test(month) ||
+                !/^\d{4}$/.test(year) ||
+                date.getDate() !== d ||
+                date.getMonth() !== m - 1 ||
+                date.getFullYear() !== y ||
+                y < 1900 ||
+                date > new Date()
+            ) {
+                alert("Please enter a valid date of birth!");
+                document.getElementById("day").focus();
+                return false;
+            }
+
+            // Mobile: exactly 10 digits
+            if (!/^[0-9]{10}$/.test(mobile)) {
+                alert("Mobile number must contain exactly 10 digits!");
+                document.getElementById("mobile").focus();
+                return false;
+            }
+
+            // Email validation
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                alert("Please enter a valid email address containing @!");
+                document.getElementById("email").focus();
+                return false;
+            }
+
+            // Password validation
+            if (password.length < 8) {
+                alert("Password must contain at least 8 characters!");
+                document.getElementById("password").focus();
+                return false;
+            }
+
+            // Gender validation
+            var gender = document.querySelector(
+                'input[name="gender"]:checked'
+            );
+
+            if (gender === null) {
+                alert("Please select your gender!");
+                return false;
+            }
+
+            // Department validation
+            var departments = document.querySelectorAll(
+                'input[name="department"]:checked'
+            );
+
+            if (departments.length === 0) {
+                alert("Please select at least one department!");
+                return false;
+            }
+
+            // Course validation
+            if (course === "") {
+                alert("Please select a course!");
+                document.getElementById("course").focus();
+                return false;
+            }
+
+            // Photo validation
+            if (photo === "") {
+                alert("Please select your student photo!");
+                document.getElementById("photo").focus();
+                return false;
+            }
+
+            // City validation
+            if (city === "") {
+                alert("Please enter your city!");
+                document.getElementById("city").focus();
+                return false;
+            }
+
+            // Address validation
+            if (address === "") {
+                alert("Please enter your address!");
+                document.getElementById("address").focus();
+                return false;
+            }
+
+            alert("Registration successful!");
+            return true;
+        }
+
+        // Reset field colors when the form is reset
+        function resetForm() {
+            var fields = document.querySelectorAll(
+                "input, select, textarea"
+            );
+
+            fields.forEach(function(field) {
+                field.classList.remove("completed");
+                field.classList.remove("invalid");
+                field.style.backgroundColor = "";
+                field.style.border = "";
+                field.style.transform = "";
+            });
+        }
+    </script>
+</head>
+
+<body>
+
+<form onsubmit="return validateForm()"
+      onreset="setTimeout(resetForm, 0)">
+
+    <div class="form-container">
+
+        <!-- University logo and heading -->
+        <div class="form-header">
+ <img src="C:\Users\HP\OneDrive\Pictures\Camera Roll\logo.jpeg"
+ alt="University Logo"
+ width="100px"
+ height="100px"
+            <h1>Lamrin Tech Skills University</h1>
+            <h2>(LTSU)</h2>
+            <h3>Student Registration Form</h3>
+
+            <hr>
+        </div>
+
+        <!-- Roll number -->
+        <div class="form-row">
+            <label for="roll">Roll no. :</label>
+            <input type="text" id="roll"
+                   class="full-width"
+                   onfocus="fieldFocus(this)"
+                   oninput="fieldInput(this)"
+                   onblur="fieldBlur(this)"
+                   required>
+        </div>
+
+        <!-- Student name -->
+        <div class="form-row">
+            <label>Student name :</label>
+            <div>
+                <input type="text" id="fname"
+                       placeholder="First Name"
+                       onfocus="fieldFocus(this)"
+                       oninput="fieldInput(this)"
+                       onblur="fieldBlur(this)"
+                       required>
+                -
+                <input type="text" id="lname"
+                       placeholder="Last Name"
+                       onfocus="fieldFocus(this)"
+                       oninput="fieldInput(this)"
+                       onblur="fieldBlur(this)"
+                       required>
+            </div>
+        </div>
+
+        <!-- Father's name -->
+        <div class="form-row">
+            <label for="father">Father's name :</label>
+            <input type="text" id="father"
+                   class="full-width"
+                   onfocus="fieldFocus(this)"
+                   oninput="fieldInput(this)"
+                   onblur="fieldBlur(this)"
+                   required>
+        </div>
+
+        <!-- Date of birth -->
+        <div class="form-row">
+            <label>Date of birth :</label>
+            <div>
+                <input type="text" id="day"
+                       size="3" placeholder="Day"
+                       maxlength="2"
+                       onfocus="fieldFocus(this)"
+                       oninput="fieldInput(this)"
+                       onblur="fieldBlur(this)"
+                       required>
+                -
+                <input type="text" id="month"
+                       size="3" placeholder="Month"
+                       maxlength="2"
+                       onfocus="fieldFocus(this)"
+                       oninput="fieldInput(this)"
+                       onblur="fieldBlur(this)"
+                       required>
+                -
+                <input type="text" id="year"
+                       size="5" placeholder="Year"
+                       maxlength="4"
+                       onfocus="fieldFocus(this)"
+                       oninput="fieldInput(this)"
+                       onblur="fieldBlur(this)"
+                       required>
+                <i>(DD-MM-YYYY)</i>
+            </div>
+        </div>
+
+        <!-- Mobile number -->
+        <div class="form-row">
+            <label for="mobile">Mobile no. :</label>
+            <div>
+                <input type="text" size="3"
+                       value="+91" readonly>
+                -
+                <input type="tel" id="mobile"
+                       maxlength="10"
+                       placeholder="10-digit mobile number"
+                       onfocus="fieldFocus(this)"
+                       oninput="fieldInput(this)"
+                       onblur="fieldBlur(this)"
+                       required>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-row">
+            <label for="email">Email id :</label>
+            <input type="email" id="email"
+                   class="full-width"
+                   onfocus="fieldFocus(this)"
+                   oninput="fieldInput(this)"
+                   onblur="fieldBlur(this)"
+                   required>
+        </div>
+
+        <!-- Password -->
+        <div class="form-row">
+            <label for="password">Password :</label>
+            <input type="password" id="password"
+                   class="full-width"
+                   minlength="8"
+                   onfocus="fieldFocus(this)"
+                   oninput="fieldInput(this)"
+                   onblur="fieldBlur(this)"
+                   required>
+        </div>
+
+        <!-- Gender -->
+        <div class="form-row">
+            <label>Gender :</label>
+            <div>
+                <input type="radio" name="gender"
+                       value="Male" required> Male
+
+                <input type="radio" name="gender"
+                       value="Female"> Female
+            </div>
+        </div>
+
+        <!-- Department -->
+        <div class="form-row">
+            <label>Department :</label>
+            <div>
+                <input type="checkbox" name="department"
+                       value="CSE"> CSE
+
+                <input type="checkbox" name="department"
+                       value="IT"> IT
+
+                <input type="checkbox" name="department"
+                       value="ECE"> ECE
+
+                <input type="checkbox" name="department"
+                       value="Civil"> Civil
+
+                <input type="checkbox" name="department"
+                       value="Mech"> Mech
+            </div>
+        </div>
+
+        <!-- Course -->
+        <div class="form-row">
+            <label for="course">Course :</label>
+            <select id="course"
+                    onfocus="fieldFocus(this)"
+                    onchange="fieldChange(this)"
+                    onblur="fieldBlur(this)"
+                    required>
+                <option value="">Select Current Course</option>
+                <option value="Python">Python</option>
+                <option value="Node">Node</option>
+                <option value="Java">Java</option>
+                <option value="React">React</option>
+                <option value="PHP">PHP</option>
+            </select>
+        </div>
+
+        <!-- Student photo -->
+        <div class="form-row">
+            <label for="photo">Student photo :</label>
+            <input type="file" id="photo"
+                   accept="image/*" required>
+        </div>
+
+        <!-- City -->
+        <div class="form-row">
+            <label for="city">City :</label>
+            <input type="text" id="city"
+                   class="full-width"
+                   onfocus="fieldFocus(this)"
+                   oninput="fieldInput(this)"
+                   onblur="fieldBlur(this)"
+                   required>
+        </div>
+
+        <!-- Address -->
+        <div class="form-row">
+            <label for="address">Address :</label>
+            <textarea id="address" rows="4"
+                      class="full-width"
+                      onfocus="fieldFocus(this)"
+                      oninput="fieldInput(this)"
+                      onblur="fieldBlur(this)"
+                      required></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="buttons">
+            <input type="submit" value="Register">
+            <input type="reset" value="Reset">
+        </div>
+
+    </div>
+
+</form>
+
+</body>
+</html>

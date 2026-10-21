@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Details and Grade</title>
+</head>
+<body>
+
+<h1>Student Details and Grade Calculator</h1>
+
+<script>
+let name = prompt("Enter Student Name:");
+let roll = prompt("Enter Roll Number:");
+
+let m1 = Number(prompt("Enter marks in Mthematics:"));
+let m2 = Number(prompt("Enter marks in Science:"));
+let m3 = Number(prompt("Enter marks in Social Science:"));
+let m4 = Number(prompt("Enter marks in English:"));
+let m5 = Number(prompt("Enter marks in Punjabi:"));
+
+let total = m1 + m2 + m3 + m4 + m5;
+let percentage = total / 5;
+let grade;
+
+if (percentage >= 90) {
+    grade = "A+";
+}
+else if (percentage >= 80) {
+    grade = "A";
+}
+else if (percentage >= 70) {
+    grade = "B";
+}
+else if (percentage >= 60) {
+    grade = "C";
+}
+else if (percentage >= 40) {
+    grade = "D";
+}
+else {
+    grade = "Fail";
+}
+
+document.write("<h2>Student Details</h2>");
+document.write("Student Name: " + name + "<br>");
+document.write("Roll Number: " + roll + "<br><br>");
+
+document.write("<h2>Subject Marks</h2>");
+document.write("Mathematics: " + m1 + "<br>");
+document.write("Science: " + m2 + "<br>");
+document.write("Social Science : " + m3 + "<br>");
+document.write("English: " + m4 + "<br>");
+document.write("Punjabi: " + m5 + "<br><br>");
+
+document.write("Total Marks: " + total + " / 500<br>");
+document.write("Percentage: " + percentage + "%<br>");
+document.write("Grade: " + grade);
+</script>
+
+</body>
+</html>

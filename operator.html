@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Control Flow</h1>
+<h2>The While Loop</h2>
+
+<p id="demo"></p>
+
+<script>
+let res;
+let oper = '+';
+let x = 20, y = 10;
+
+let i = 0;
+
+while (i < 4) {
+    if (oper == '+') {
+        res = x + y;
+        break;
+    }
+    else if (oper == '-') {
+        res = x - y;
+        break;
+    }
+    else if (oper == '/') {
+        res = x / y;
+        break;
+    }
+    else if (oper == '%') {
+        res = x % y;
+        break;
+    }
+
+    i++;
+}
+
+document.getElementById("demo").innerHTML = "Result: " + res;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Vowels</title>
+</head>
+<body>
+    <h2>Display Vowels from Array</h2>
+    <label>Enter characters separated by commas:</label>
+    <input type="text" id="chars" placeholder="a,b,c,e,f,i">
+    <button onclick="displayVowels()">Display Vowels</button>
+    <p id="result"></p>
+    <script>
+        function displayVowels() {
+            var input = document.getElementById("chars").value;
+            var arr = input.split(",");
+            var vowels = "";
+            for (var i = 0; i < arr.length; i++) {
+                var ch = arr[i].trim().toLowerCase();
+                if (ch == "a" || ch == "e" || ch == "i" ||
+                    ch == "o" || ch == "u") {
+                    vowels += ch + " ";
+                }
+            }
+            document.getElementById("result").innerHTML =
+                "Vowels are: " + vowels;
+        }
+    </script>
+</body>
+</html>
